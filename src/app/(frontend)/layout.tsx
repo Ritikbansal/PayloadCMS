@@ -8,12 +8,12 @@ export const metadata = {
 
 export default async function RootLayout(props: {
   children: React.ReactNode
-  params: { lang: string }
+  params: Promise<{ lang: string }>
 }) {
   const { children } = props
 
   return (
-    <html lang={props.params.lang}>
+    <html lang={(await props.params).lang}>
       <body>
         <main>{children}</main>
       </body>

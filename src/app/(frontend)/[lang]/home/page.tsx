@@ -13,8 +13,8 @@ export async function generateMetadata() {
   return seoToMetadata(page?.seo, page?.title)
 }
 
-export default async function HomePage({ params }: { params: { lang: string } }) {
-  const page: Page = await getPage('home', params.lang)
+export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
+  const page: Page = await getPage('home', (await params).lang)
   if (!page?.layout) {
     notFound()
   }

@@ -1,20 +1,17 @@
 'use client'
 
-import { useState } from 'react'
-import { Globe, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { Page } from '@/payload-types'
 
 type PageLayout = NonNullable<Page['layout']>
 type Footer = Extract<PageLayout[number], { blockType: 'footer' }>
 export function Footer(footer: Footer) {
-  const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false)
-  const [selectedLanguage, setSelectedLanguage] = useState(footer.languages[0])
+  // const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false)
+  // const [selectedLanguage, setSelectedLanguage] = useState(footer.languages[0])
 
-  const handleLanguageSelect = (language: (typeof footer.languages)[0]) => {
-    setSelectedLanguage(language)
-    setIsLanguageModalOpen(false)
-  }
+  // const handleLanguageSelect = (language: (typeof footer.languages)[0]) => {
+  //   setSelectedLanguage(language)
+  //   setIsLanguageModalOpen(false)
+  // }
 
   return (
     <>
@@ -80,7 +77,7 @@ export function Footer(footer: Footer) {
 
             {/* Language & Legal */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Language</h3>
+              {/* <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Language</h3>
               <Button
                 variant="outline"
                 size="sm"
@@ -90,7 +87,8 @@ export function Footer(footer: Footer) {
                 <Globe className="w-4 h-4 mr-2" />
                 <span className="mr-1">{selectedLanguage.flag}</span>
                 <span>{selectedLanguage.name}</span>
-              </Button>
+              </Button> */}
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Legal</h3>
 
               <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300 mt-4">
                 {footer.legalLinks?.map((link) => {
@@ -143,10 +141,9 @@ export function Footer(footer: Footer) {
       </footer>
 
       {/* Language Selection Modal */}
-      {isLanguageModalOpen && (
+      {/* {isLanguageModalOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-2xl border border-white/20 dark:border-gray-700/50 shadow-2xl max-w-md w-full max-h-[80vh] overflow-hidden">
-            {/* Modal Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200/50 dark:border-gray-700/50">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                 <Globe className="w-5 h-5" />
@@ -162,7 +159,6 @@ export function Footer(footer: Footer) {
               </Button>
             </div>
 
-            {/* Language List */}
             <div className="p-4 max-h-96 overflow-y-auto">
               <div className="grid grid-cols-1 gap-2">
                 {footer.languages?.map((language) => (
@@ -189,7 +185,7 @@ export function Footer(footer: Footer) {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   )
 }

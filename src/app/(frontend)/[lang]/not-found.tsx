@@ -1,14 +1,10 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
 export default function NotFound() {
   const pathname = usePathname()
-  const router = useRouter()
-
   const locale = pathname.split('/').filter(Boolean)[0] ?? 'en'
-  const homeHref = `/${locale}/home`
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center px-4">
       <div className="text-center max-w-md mx-auto">

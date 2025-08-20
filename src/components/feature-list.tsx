@@ -44,7 +44,7 @@ export function FeatureList(feature: FeatureList) {
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {feature.features.map((feature) => {
+          {feature.features?.map((feature) => {
             const Icon = features[feature.icon]
             return (
               <div
