@@ -13,6 +13,7 @@ import Posts from './collections/Posts'
 import Pages from './collections/Pages'
 import ContactSubmission from './collections/ContactSubmission'
 import FeatureList from './collections/blocks/featureList'
+import Languages from './collections/Languages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -24,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Pages, ContactSubmission],
+  collections: [Users, Media, Posts, Languages, Pages, ContactSubmission],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

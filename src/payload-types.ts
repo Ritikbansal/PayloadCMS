@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     posts: Post;
+    languages: Language;
     pages: Page;
     'contact-submissions': ContactSubmission;
     'payload-locked-documents': PayloadLockedDocument;
@@ -81,6 +82,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    languages: LanguagesSelect<false> | LanguagesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -191,6 +193,18 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "languages".
+ */
+export interface Language {
+  id: string;
+  code: string;
+  name: string;
+  flag: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -283,6 +297,94 @@ export interface Page {
             blockType: 'cta';
           }
         | {
+            heading?: string | null;
+            subheading?: string | null;
+            features?:
+              | {
+                  icon?: string | null;
+                  title?: string | null;
+                  description?: string | null;
+                  badge?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'productFeatures';
+          }
+        | {
+            badge?: string | null;
+            title: string;
+            highlight?: string | null;
+            subheading?: string | null;
+            primaryCta?: {
+              text?: string | null;
+              link?: string | null;
+            };
+            secondaryCta?: {
+              text?: string | null;
+              link?: string | null;
+            };
+            stats?:
+              | {
+                  value: string;
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'productHero';
+          }
+        | {
+            heading?: string | null;
+            subheading?: string | null;
+            plans?:
+              | {
+                  name: string;
+                  price?: string | null;
+                  period?: string | null;
+                  description?: string | null;
+                  features?:
+                    | {
+                        item?: string | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  popular?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            bottomNote?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'productPricing';
+          }
+        | {
+            sections?:
+              | {
+                  badge?: string | null;
+                  title: string;
+                  description?: string | null;
+                  list?:
+                    | {
+                        item?: string | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  cta?: {
+                    text?: string | null;
+                    link?: string | null;
+                  };
+                  image?: (string | null) | Media;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'productShowcase';
+          }
+        | {
             companyLinks?:
               | {
                   label: string;
@@ -311,17 +413,10 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            languages?:
-              | {
-                  code: string;
-                  name: string;
-                  flag: string;
-                  id?: string | null;
-                }[]
-              | null;
+            languages?: (string | Language)[] | null;
             socialLinks?:
               | {
-                  platform: string;
+                  platform: 'linkedin';
                   url: string;
                   id?: string | null;
                 }[]
@@ -380,6 +475,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'languages';
+        value: string | Language;
       } | null)
     | ({
         relationTo: 'pages';
@@ -480,6 +579,17 @@ export interface PostsSelect<T extends boolean = true> {
   title?: T;
   content?: T;
   publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "languages_select".
+ */
+export interface LanguagesSelect<T extends boolean = true> {
+  code?: T;
+  name?: T;
+  flag?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -590,6 +700,104 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        productFeatures?:
+          | T
+          | {
+              heading?: T;
+              subheading?: T;
+              features?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
+                    description?: T;
+                    badge?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        productHero?:
+          | T
+          | {
+              badge?: T;
+              title?: T;
+              highlight?: T;
+              subheading?: T;
+              primaryCta?:
+                | T
+                | {
+                    text?: T;
+                    link?: T;
+                  };
+              secondaryCta?:
+                | T
+                | {
+                    text?: T;
+                    link?: T;
+                  };
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        productPricing?:
+          | T
+          | {
+              heading?: T;
+              subheading?: T;
+              plans?:
+                | T
+                | {
+                    name?: T;
+                    price?: T;
+                    period?: T;
+                    description?: T;
+                    features?:
+                      | T
+                      | {
+                          item?: T;
+                          id?: T;
+                        };
+                    popular?: T;
+                    id?: T;
+                  };
+              bottomNote?: T;
+              id?: T;
+              blockName?: T;
+            };
+        productShowcase?:
+          | T
+          | {
+              sections?:
+                | T
+                | {
+                    badge?: T;
+                    title?: T;
+                    description?: T;
+                    list?:
+                      | T
+                      | {
+                          item?: T;
+                          id?: T;
+                        };
+                    cta?:
+                      | T
+                      | {
+                          text?: T;
+                          link?: T;
+                        };
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         footer?:
           | T
           | {
@@ -621,14 +829,7 @@ export interface PagesSelect<T extends boolean = true> {
                     url?: T;
                     id?: T;
                   };
-              languages?:
-                | T
-                | {
-                    code?: T;
-                    name?: T;
-                    flag?: T;
-                    id?: T;
-                  };
+              languages?: T;
               socialLinks?:
                 | T
                 | {

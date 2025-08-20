@@ -6,6 +6,10 @@ import CTA from '@/collections/blocks/cta'
 import FeatureList from './blocks/featureList'
 import Footer from './blocks/footer'
 import { seoFields } from './SEO'
+import ProductPricing from './blocks/productPricing'
+import ProductShowcase from './blocks/productShowcase'
+import ProductHero from './blocks/productHero'
+import ProductFeatures from './blocks/productFeatures'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -31,7 +35,17 @@ const Pages: CollectionConfig = {
       name: 'layout',
       type: 'blocks',
       localized: true,
-      blocks: [Hero, FeatureList, Testimonial, CTA, Footer],
+      blocks: [
+        Hero,
+        FeatureList,
+        Testimonial,
+        CTA,
+        ProductFeatures,
+        ProductHero,
+        ProductPricing,
+        ProductShowcase,
+        Footer,
+      ],
     },
     seoFields,
   ],

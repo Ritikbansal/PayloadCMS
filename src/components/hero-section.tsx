@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Star } from 'lucide-react'
+import Link from 'next/link'
 import { Fragment } from 'react'
 export type HeroBlock = {
   badge?: string | null
@@ -41,22 +42,26 @@ export function HeroSection(hero: HeroBlock) {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button
-            size="lg"
-            className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white px-8 py-3 text-lg"
-          >
-            {hero.primaryCta.text}
-            {/* Get Started Free */}
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="px-8 py-3 text-lg cursor-pointer border-gray-300 dark:border-gray-600 bg-transparent"
-          >
-            {hero.secondaryCta.text}
-            {/* Watch Demo */}
-          </Button>
+          <Link href={hero.primaryCta?.link || '#'}>
+            <Button
+              size="lg"
+              className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white px-8 py-3 text-lg"
+            >
+              {hero.primaryCta.text}
+              {/* Get Started Free */}
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
+          <Link href={hero.secondaryCta?.link || '#'}>
+            <Button
+              variant="outline"
+              size="lg"
+              className="px-8 py-3 text-lg cursor-pointer border-gray-300 dark:border-gray-600 bg-transparent"
+            >
+              {hero.secondaryCta.text}
+              {/* Watch Demo */}
+            </Button>
+          </Link>
         </div>
 
         {/* Stats */}
