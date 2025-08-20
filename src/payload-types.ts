@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    posts: Post;
+    pages: Page;
+    'contact-submissions': ContactSubmission;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,6 +80,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
+    'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -86,7 +92,7 @@ export interface Config {
   };
   globals: {};
   globalsSelect: {};
-  locale: null;
+  locale: 'en' | 'es' | 'fr';
   user: User & {
     collection: 'users';
   };
@@ -119,6 +125,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
+  roles?: ('admin' | 'editor' | 'user')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -158,6 +165,205 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: string;
+  title: string;
+  slug: string;
+  layout?:
+    | (
+        | {
+            badge?: string | null;
+            title: string;
+            highlight?: string | null;
+            subheading?: string | null;
+            primaryCta: {
+              text: string;
+              link: string;
+            };
+            secondaryCta: {
+              text: string;
+              link: string;
+            };
+            stats?:
+              | {
+                  value: string;
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            heading?: string | null;
+            subheading?: string | null;
+            features?:
+              | {
+                  icon: 'zap' | 'shield' | 'users' | 'barChart3' | 'lock' | 'smartphone';
+                  title: string;
+                  description: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'featureList';
+          }
+        | {
+            heading: string;
+            subheading?: string | null;
+            trustedByHeading?: string | null;
+            testimonials: {
+              name: string;
+              role?: string | null;
+              avatar?: string | null;
+              content: string;
+              rating?: number | null;
+              id?: string | null;
+            }[];
+            trustedBy?:
+              | {
+                  company?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonial';
+          }
+        | {
+            heading: string;
+            subheading?: string | null;
+            benefits?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            primaryButton?: {
+              label?: string | null;
+              link?: string | null;
+            };
+            secondaryButton?: {
+              label?: string | null;
+              link?: string | null;
+            };
+            trustBadge?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            companyLinks?:
+              | {
+                  label: string;
+                  url: string;
+                  id?: string | null;
+                }[]
+              | null;
+            productLinks?:
+              | {
+                  label: string;
+                  url: string;
+                  id?: string | null;
+                }[]
+              | null;
+            supportLinks?:
+              | {
+                  label: string;
+                  url: string;
+                  id?: string | null;
+                }[]
+              | null;
+            legalLinks?:
+              | {
+                  label: string;
+                  url: string;
+                  id?: string | null;
+                }[]
+              | null;
+            languages?:
+              | {
+                  code: string;
+                  name: string;
+                  flag: string;
+                  id?: string | null;
+                }[]
+              | null;
+            socialLinks?:
+              | {
+                  platform: string;
+                  url: string;
+                  id?: string | null;
+                }[]
+              | null;
+            copyright?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'footer';
+          }
+      )[]
+    | null;
+  seo: {
+    title: string;
+    description: string;
+    keywords?: string | null;
+    canonicalURL?: string | null;
+    ogImage?: (string | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions".
+ */
+export interface ContactSubmission {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  seo: {
+    title: string;
+    description: string;
+    keywords?: string | null;
+    canonicalURL?: string | null;
+    ogImage?: (string | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -170,6 +376,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'contact-submissions';
+        value: string | ContactSubmission;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -218,6 +436,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  roles?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -252,6 +471,207 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  content?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  layout?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              badge?: T;
+              title?: T;
+              highlight?: T;
+              subheading?: T;
+              primaryCta?:
+                | T
+                | {
+                    text?: T;
+                    link?: T;
+                  };
+              secondaryCta?:
+                | T
+                | {
+                    text?: T;
+                    link?: T;
+                  };
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        featureList?:
+          | T
+          | {
+              heading?: T;
+              subheading?: T;
+              features?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        testimonial?:
+          | T
+          | {
+              heading?: T;
+              subheading?: T;
+              trustedByHeading?: T;
+              testimonials?:
+                | T
+                | {
+                    name?: T;
+                    role?: T;
+                    avatar?: T;
+                    content?: T;
+                    rating?: T;
+                    id?: T;
+                  };
+              trustedBy?:
+                | T
+                | {
+                    company?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              heading?: T;
+              subheading?: T;
+              benefits?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              primaryButton?:
+                | T
+                | {
+                    label?: T;
+                    link?: T;
+                  };
+              secondaryButton?:
+                | T
+                | {
+                    label?: T;
+                    link?: T;
+                  };
+              trustBadge?: T;
+              id?: T;
+              blockName?: T;
+            };
+        footer?:
+          | T
+          | {
+              companyLinks?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              productLinks?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              supportLinks?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              legalLinks?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              languages?:
+                | T
+                | {
+                    code?: T;
+                    name?: T;
+                    flag?: T;
+                    id?: T;
+                  };
+              socialLinks?:
+                | T
+                | {
+                    platform?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              copyright?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?: T;
+        canonicalURL?: T;
+        ogImage?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions_select".
+ */
+export interface ContactSubmissionsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  message?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?: T;
+        canonicalURL?: T;
+        ogImage?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

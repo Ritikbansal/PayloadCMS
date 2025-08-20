@@ -1,0 +1,18 @@
+export async function getPage(slug: string, locale = 'en') {
+  console.log('locale', locale)
+  const baseUrl =
+    process.env.PAYLOAD_URL ||
+    (typeof window !== 'undefined'
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000')
+
+  const res = await fetch(`${baseUrl}/api/pages?where[slug][equals]=${slug}&locale=${locale}`, {
+    cache: 'no-store',
+  })
+  console.log('res', res)
+
+  if (!res.ok) throw new Error('Failed to fetch page')
+
+  const data = await res.json()
+  return data.docs[0]
+}
