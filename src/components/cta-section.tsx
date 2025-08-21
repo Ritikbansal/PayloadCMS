@@ -30,7 +30,7 @@ export function CTASection(cta: CTA) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 text-blue-100">
               {cta.benefits?.map((benefit) => {
                 return (
-                  <div className="flex items-center gap-2">
+                  <div key={benefit.id} className="flex items-center gap-2">
                     <CheckCircle className="h-5 w-5" />
                     <span>{benefit.text}</span>
                   </div>

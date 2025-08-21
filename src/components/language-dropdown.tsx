@@ -10,7 +10,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-
+const languages = [
+  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'ru-RU', name: 'Русский', flag: '🇷🇺' }, // Russian
+  { code: 'zh-CN', name: '中文 (简体)', flag: '🇨🇳' }, // Chinese (Simplified)
+]
 type Language = {
   code: string
   name: string
@@ -18,29 +24,11 @@ type Language = {
 }
 
 export function LanguageDropdown() {
-  const [languages, setLanguages] = useState<Language[]>([])
   const pathname = usePathname()
   const router = useRouter()
   const currentLang = pathname.split('/')[1] || 'en'
 
-  useEffect(() => {
-    const fetchLanguages = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/languages`) // your Payload endpoint
-        const data = await res.json()
-        // assuming your payload collection has `code`, `name`, `flag`
-        setLanguages(data.docs)
-      } catch (error) {
-        console.error('Failed to fetch languages', error)
-      }
-    }
-
-    fetchLanguages()
-  }, [])
-
   const handleChangeLanguage = (lang: string) => {
-    // Match language prefix at the start of the pathname
-    // Assuming language codes contain letters, numbers, and hyphens
     const newPath = pathname.replace(/^\/[a-zA-Z0-9-]+/, `/${lang}`)
     router.push(newPath)
   }

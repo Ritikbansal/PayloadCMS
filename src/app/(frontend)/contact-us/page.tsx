@@ -78,7 +78,6 @@ export function ContactForm() {
       setIsSubmitting(false)
       setIsSubmitted(true)
 
-      // Reset form after success
       setTimeout(() => {
         setFormData({ name: '', email: '', message: '' })
         setIsSubmitted(false)
@@ -92,7 +91,6 @@ export function ContactForm() {
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
-    // Clear error when user starts typing
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }))
     }

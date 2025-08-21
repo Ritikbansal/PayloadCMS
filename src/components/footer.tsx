@@ -5,14 +5,6 @@ import { Page } from '@/payload-types'
 type PageLayout = NonNullable<Page['layout']>
 type Footer = Extract<PageLayout[number], { blockType: 'footer' }>
 export function Footer(footer: Footer) {
-  // const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false)
-  // const [selectedLanguage, setSelectedLanguage] = useState(footer.languages[0])
-
-  // const handleLanguageSelect = (language: (typeof footer.languages)[0]) => {
-  //   setSelectedLanguage(language)
-  //   setIsLanguageModalOpen(false)
-  // }
-
   return (
     <>
       <footer className="relative bg-white/10 dark:bg-gray-900/50 backdrop-blur-md border-t border-white/20 dark:border-gray-700/50 mt-16">
