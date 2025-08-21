@@ -31,6 +31,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  cors: ['http://localhost:3000', 'http://restroworks.ritik.fyi', 'https://ritik.fyi'],
   db: mongooseAdapter({
     url: process.env.DATABASE_URI!,
   }),
