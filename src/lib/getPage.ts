@@ -1,9 +1,9 @@
 export async function getPage(slug: string, locale = 'en') {
   const baseUrl =
-    process.env.PAYLOAD_URL ||
+    process.env.NEXT_PUBLIC_PAYLOAD_URL ||
     (typeof window !== 'undefined'
       ? window.location.origin
-      : process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000')
+      : process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000')
 
   const res = await fetch(`${baseUrl}/api/pages?where[slug][equals]=${slug}&locale=${locale}`, {
     cache: 'no-store',
