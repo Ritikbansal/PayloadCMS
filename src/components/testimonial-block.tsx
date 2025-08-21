@@ -3,33 +3,6 @@ import { Star, Quote } from 'lucide-react'
 type PageLayout = NonNullable<Page['layout']>
 type TestimonialBlockType = Extract<PageLayout[number], { blockType: 'testimonial' }>
 
-const testimonials = [
-  {
-    name: 'Sarah John',
-    role: 'CEO, TechStart',
-    avatar: '/professional-woman-ceo.png',
-    content:
-      'This platform has completely transformed how we operate. The efficiency gains are remarkable, and our team productivity has increased by 300%.',
-    rating: 5,
-  },
-  {
-    name: 'Michael Chen',
-    role: 'CTO, InnovateCorp',
-    avatar: '/professional-man-cto.png',
-    content:
-      "The security features and reliability are outstanding. We've had zero downtime since switching, and the support team is incredibly responsive.",
-    rating: 5,
-  },
-  {
-    name: 'Emily Guez',
-    role: 'Product Manager, GrowthLab',
-    avatar: '/professional-woman-product-manager.png',
-    content:
-      'The analytics and insights have been game-changing for our decision-making process. We can now make data-driven decisions with confidence.',
-    rating: 5,
-  },
-]
-
 export function TestimonialBlock(testimonial: TestimonialBlockType) {
   return (
     <section className="px-4 py-20">

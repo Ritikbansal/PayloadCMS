@@ -35,7 +35,7 @@ export function ProductHero(props: ProductHeroBlock) {
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg"
             >
-              <a href={primaryCta.link}>
+              <a href={primaryCta?.link || '#'}>
                 {primaryCta.text}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
@@ -48,7 +48,7 @@ export function ProductHero(props: ProductHeroBlock) {
               size="lg"
               className="px-8 py-4 text-lg bg-transparent"
             >
-              <a href={secondaryCta.link}>
+              <a href={secondaryCta?.link || '#'}>
                 <Play className="mr-2 h-5 w-5" />
                 {secondaryCta.text}
               </a>

@@ -23,11 +23,6 @@ const nextConfig = {
         destination: '/en/home',
         permanent: true, // 308 permanent redirect
       },
-      {
-        source: '/en/product',
-        destination: '/en/products',
-        permanent: true, // 308 permanent redirect
-      },
     ]
   },
   // Your Next.js config here

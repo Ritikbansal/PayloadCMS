@@ -2,9 +2,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Page } from '@/payload-types'
 import * as Icons from 'lucide-react'
+import { LucideProps } from 'lucide-react'
 
 type PageLayout = NonNullable<Page['layout']>
 type ProductFeaturesBlock = Extract<PageLayout[number], { blockType: 'productFeatures' }>
+
+// Explicit type for icon components
+type IconComponent = React.ComponentType<LucideProps>
 
 export function ProductFeatures(props: ProductFeaturesBlock) {
   const { heading, subheading, features } = props
@@ -25,7 +29,7 @@ export function ProductFeatures(props: ProductFeaturesBlock) {
           {features?.map((feature, index) => {
             const Icon =
               feature.icon && Icons[feature.icon as keyof typeof Icons]
-                ? Icons[feature.icon as keyof typeof Icons]
+                ? (Icons[feature.icon as keyof typeof Icons] as IconComponent)
                 : Icons.Zap
 
             return (
