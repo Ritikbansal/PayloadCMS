@@ -56,9 +56,9 @@ export function ProductHero(props: ProductHeroBlock) {
           )}
         </div>
 
-        {stats?.length > 0 && (
+        {stats?.length && stats?.length > 0 && (
           <div className="grid grid-cols-3 gap-8 pt-12 max-w-2xl mx-auto">
-            {stats.map((s, i) => (
+            {stats?.map((s, i) => (
               <div key={i} className="text-center">
                 <div className="text-3xl font-bold text-foreground">{s.value}</div>
                 <div className="text-muted-foreground">{s.label}</div>

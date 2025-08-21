@@ -45,7 +45,7 @@ export function CTASection(cta: CTA) {
                   size="lg"
                   className="bg-white cursor-pointer text-blue-600 hover:bg-gray-50 px-8 py-3 text-lg font-semibold"
                 >
-                  {cta.primaryButton?.label}
+                  {cta.primaryButton?.text}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -55,7 +55,7 @@ export function CTASection(cta: CTA) {
                   size="lg"
                   className="border-white cursor-pointer text-white hover:bg-white/10 px-8 py-3 text-lg bg-transparent"
                 >
-                  {cta.secondaryButton?.label}
+                  {cta.secondaryButton?.text}
                 </Button>
               </Link>
             </div>

@@ -44,7 +44,7 @@ const CTA: Block = {
       type: 'group',
       fields: [
         {
-          name: 'label',
+          name: 'text',
           localized: true,
           type: 'text',
           defaultValue: 'Start Free Trial',
@@ -61,7 +61,7 @@ const CTA: Block = {
       type: 'group',
       fields: [
         {
-          name: 'label',
+          name: 'text',
           localized: true,
           type: 'text',
           defaultValue: 'Schedule Demo',

@@ -8,7 +8,6 @@ type ProductShowcaseBlock = Extract<PageLayout[number], { blockType: 'productSho
 
 export function ProductShowcase(props: ProductShowcaseBlock) {
   const { sections } = props
-  console.log('section', sections)
 
   return (
     <section className="py-24 px-4 bg-background">
@@ -34,7 +33,7 @@ export function ProductShowcase(props: ProductShowcaseBlock) {
 
               {section.cta && (
                 <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                  <a href={section.cta.link}>
+                  <a href={section.cta.link || '#'}>
                     {section.cta.text}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
@@ -43,10 +42,10 @@ export function ProductShowcase(props: ProductShowcaseBlock) {
             </div>
 
             <div className={`relative ${idx % 2 === 1 ? 'order-2 lg:order-1' : ''}`}>
-              {section.image && typeof section.image !== 'string' && (
+              {section.cta && typeof section.cta !== 'string' && (
                 <div className="aspect-video bg-gradient-to-br from-accent/20 to-secondary/20 rounded-xl border border-border p-8 flex items-center justify-center">
                   <img
-                    src={section.image.url}
+                    src={section?.cta?.link + '.png' || '#'}
                     alt={section.title}
                     className="w-full h-full object-cover rounded-lg"
                   />

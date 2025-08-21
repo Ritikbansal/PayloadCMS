@@ -35,7 +35,7 @@ export default buildConfig({
     url: process.env.DATABASE_URI!,
   }),
   localization: {
-    locales: ['en', 'es', 'fr'],
+    locales: ['en', 'es', 'fr', 'zh-CN', 'ru-RU'],
     defaultLocale: 'en',
     fallback: true,
   },

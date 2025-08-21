@@ -7,7 +7,11 @@ import { ProductShowcase } from '@/components/product-showcase'
 import { getPage } from '@/lib/getPage'
 import { notFound } from 'next/navigation'
 import { Page } from '@/payload-types'
-
+import { seoToMetadata } from '@/lib/seo'
+export async function generateMetadata() {
+  const page: Page = await getPage('home')
+  return seoToMetadata(page?.seo, page?.title)
+}
 export default async function ProductsPage({ params }: { params: Promise<{ lang: string }> }) {
   const page: Page = await getPage('products', (await params).lang)
   if (!page?.layout) {
@@ -15,7 +19,6 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
   }
 
   const hero = page.layout.find((l) => l.blockType === 'productHero')
-  console.log('hero', hero)
   const features = page.layout.find((l) => l.blockType === 'productFeatures')
   const showcase = page.layout.find((l) => l.blockType === 'productShowcase')
   const pricing = page.layout.find((l) => l.blockType === 'productPricing')

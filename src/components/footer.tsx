@@ -116,6 +116,7 @@ export function Footer(footer: Footer) {
               {footer.socialLinks?.map((link) => {
                 return (
                   <a
+                    key={link.id}
                     href="#"
                     className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >

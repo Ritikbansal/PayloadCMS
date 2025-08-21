@@ -1,5 +1,4 @@
 export async function getPage(slug: string, locale = 'en') {
-  console.log('locale', locale)
   const baseUrl =
     process.env.PAYLOAD_URL ||
     (typeof window !== 'undefined'
@@ -9,7 +8,6 @@ export async function getPage(slug: string, locale = 'en') {
   const res = await fetch(`${baseUrl}/api/pages?where[slug][equals]=${slug}&locale=${locale}`, {
     cache: 'no-store',
   })
-  console.log('res', res)
 
   if (!res.ok) throw new Error('Failed to fetch page')
 

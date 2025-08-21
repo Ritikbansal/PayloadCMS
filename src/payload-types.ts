@@ -94,7 +94,7 @@ export interface Config {
   };
   globals: {};
   globalsSelect: {};
-  locale: 'en' | 'es' | 'fr';
+  locale: 'en' | 'es' | 'fr' | 'zh-CN' | 'ru-RU';
   user: User & {
     collection: 'users';
   };
@@ -284,11 +284,11 @@ export interface Page {
                 }[]
               | null;
             primaryButton?: {
-              label?: string | null;
+              text?: string | null;
               link?: string | null;
             };
             secondaryButton?: {
-              label?: string | null;
+              text?: string | null;
               link?: string | null;
             };
             trustBadge?: string | null;
@@ -431,9 +431,12 @@ export interface Page {
   seo: {
     title: string;
     description: string;
-    keywords?: string | null;
     canonicalURL?: string | null;
-    ogImage?: (string | null) | Media;
+    ogTitle?: string | null;
+    ogDescription?: string | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
+    twitterTitle?: string | null;
+    twitterDescription?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -450,9 +453,12 @@ export interface ContactSubmission {
   seo: {
     title: string;
     description: string;
-    keywords?: string | null;
     canonicalURL?: string | null;
-    ogImage?: (string | null) | Media;
+    ogTitle?: string | null;
+    ogDescription?: string | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
+    twitterTitle?: string | null;
+    twitterDescription?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -687,13 +693,13 @@ export interface PagesSelect<T extends boolean = true> {
               primaryButton?:
                 | T
                 | {
-                    label?: T;
+                    text?: T;
                     link?: T;
                   };
               secondaryButton?:
                 | T
                 | {
-                    label?: T;
+                    text?: T;
                     link?: T;
                   };
               trustBadge?: T;
@@ -847,9 +853,12 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        keywords?: T;
         canonicalURL?: T;
-        ogImage?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        twitterCard?: T;
+        twitterTitle?: T;
+        twitterDescription?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -867,9 +876,12 @@ export interface ContactSubmissionsSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        keywords?: T;
         canonicalURL?: T;
-        ogImage?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        twitterCard?: T;
+        twitterTitle?: T;
+        twitterDescription?: T;
       };
   updatedAt?: T;
   createdAt?: T;

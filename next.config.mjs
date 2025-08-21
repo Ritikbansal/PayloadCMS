@@ -6,6 +6,30 @@ const nextConfig = {
     // ⚠️ Warning: this allows production builds even if ESLint errors exist
     ignoreDuringBuilds: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/en/home',
+        permanent: true, // 308 permanent redirect
+      },
+      {
+        source: '/home',
+        destination: '/en/home',
+        permanent: true, // 308 permanent redirect
+      },
+      {
+        source: '/en',
+        destination: '/en/home',
+        permanent: true, // 308 permanent redirect
+      },
+      {
+        source: '/en/product',
+        destination: '/en/products',
+        permanent: true, // 308 permanent redirect
+      },
+    ]
+  },
   // Your Next.js config here
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
