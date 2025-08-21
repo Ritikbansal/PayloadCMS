@@ -1,67 +1,183 @@
-# Payload Blank Template
+# Payload CMS + Next.js Project
 
-This template comes configured with the bare minimum to get started on anything you need.
+A full-stack web application built with Payload CMS as the headless backend and Next.js for the frontend. The project uses Payload's schema system to manage content and renders pages dynamically in the Next.js frontend with multi-language support.
 
-## Quick start
+This template comes configured with a flexible blocks-based architecture to quickly build modern websites with content management capabilities.
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+## Tech Stack
 
-## Quick Start - local setup
+- **Backend**: Payload CMS
+- **Frontend**: Next.js
+- **Database**: MongoDB
+- **Deployment**: Render
+- **Package Manager**: pnpm
 
-To spin up this template locally, follow these steps:
+## Quick Start
 
-### Clone
+### Local Development
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+1. **Clone and Setup**:
 
-### Development
+   ```bash
+   git clone <your-repo>
+   cd my-project && cp .env.example .env
+   ```
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URI` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+2. **Install dependencies**:
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+   ```bash
+   pnpm install
+   ```
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+3. **Start development server**:
 
-#### Docker (Optional)
+   ```bash
+   pnpm dev
+   ```
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+4. **Open your browser**:
 
-To do so, follow these steps:
+   ```
+   http://localhost:3000
+   ```
 
-- Modify the `MONGODB_URI` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URI` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+5. **(Optional) Seed initial data**:
+   ```bash
+   python3 seed.py
+   ```
 
-## How it works
+### Docker (Optional)
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+If you prefer Docker for local development:
 
-### Collections
+1. Modify the `MONGODB_URI` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
+2. Update the `docker-compose.yml` file's `MONGODB_URI` to match the above `<dbname>`
+3. Run:
+   ```bash
+   docker-compose up
+   ```
+   (Add `-d` to run in the background)
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+## Environment Variables
 
-- #### Users (Authentication)
+Create a `.env` file in the root directory:
 
-  Users are auth-enabled collections that have access to the admin panel.
+```env
+DATABASE_URI=mongodb://root:example@localhost:27017/great?authSource=admin
+PAYLOAD_SECRET=d01352859bd77b9a13ae11a9
+NEXT_PUBLIC_PAYLOAD_URL=http://localhost:3000
+```
 
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
+### Production Deployment (Render)
 
-- #### Media
+1. Build command:
 
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
+   ```bash
+   pnpm install && pnpm run build
+   ```
 
-### Docker
+2. Start command:
+   ```bash
+   pnpm start
+   ```
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+## Usage
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+### Admin Panel Access
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+1. Navigate to the admin panel:
 
-## Questions
+   ```
+   http://localhost:3000/admin
+   ```
 
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+2. Login with default credentials:
+   - **Email**: `admin@ritik.app`
+   - **Password**: `1234`
+
+### Creating Pages
+
+1. In the admin panel, click on **"Create Page"**
+2. Fill in the required details (most fields have default values)
+3. **Important**: Give your page a proper slug (URL-friendly identifier)
+4. Save the page
+
+### Viewing Pages
+
+After creating a page with a slug, visit:
+
+```
+http://localhost:3000/en/your-page-slug
+```
+
+### Page Building
+
+- Pages are built using **blocks** system
+- Inside the page editor, you can create and arrange different blocks
+- These blocks are the building components that make up your page content
+- Mix and match blocks to create dynamic page layouts
+
+## CMS Architecture & Modeling
+
+### Collections Structure
+
+The project uses a **Pages collection** with a flexible blocks-based architecture:
+
+```typescript
+// collections/Pages.ts
+- Title: Localized page title with default values
+- Slug: Unique, localized URL identifier
+- Layout: Flexible blocks system for page composition
+- SEO Fields: Built-in SEO optimization
+```
+
+### Blocks System
+
+Pages are built using modular, reusable blocks:
+
+- **Hero**: Landing section with badge, title, CTAs, and stats
+- **FeatureList**: Grid of features with icons and descriptions
+- **Testimonials**: Customer testimonials and reviews
+- **CTA**: Call-to-action sections
+- **ProductFeatures/Hero/Pricing/Showcase**: Product-specific components
+- **Footer**: Site footer content
+
+### Key Design Decisions
+
+1. **Localization First**: All content fields support multiple languages (`localized: true`)
+2. **Default Values**: Every field includes sensible defaults for rapid prototyping
+3. **Public API Access**: Pages collection allows public reads for frontend rendering
+4. **Flexible Layout**: Blocks can be mixed and arranged in any order
+5. **Icon System**: Predefined icon options using Lucide icons (zap, shield, users, etc.)
+6. **Grouped Fields**: Related fields (like CTAs) are grouped for better UX
+
+### Example Block Structure
+
+```typescript
+// Feature Block
+- Icon: Select from predefined options (zap, shield, users, etc.)
+- Title: Feature heading with defaults
+- Description: Detailed feature description
+```
+
+This modular approach allows content creators to build complex, varied page layouts without technical knowledge while maintaining design consistency.
+
+## Project Structure
+
+- Payload CMS handles content management and API
+- Next.js frontend fetches and renders pages from Payload
+- MongoDB stores all content and schema data
+- Multi-language content is managed through Payload's localization features
+
+## Database
+
+The project supports both PostgreSQL and MongoDB. Currently configured for MongoDB with authentication.
+
+For Cloud deployment, you can add the `MONGODB_URI` from your Cloud project to your `.env` file if you want to use S3 storage and the cloud MongoDB database.
+
+## Support
+
+If you have any issues or questions:
+
+- https://ritik.app
+- https://email.ritik.app

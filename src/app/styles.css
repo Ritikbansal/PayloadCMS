@@ -123,3 +123,6 @@
     @apply bg-background text-foreground;
   }
 }
+.login.template-minimal.template-minimal--width-normal {
+  background-color: black;
+}

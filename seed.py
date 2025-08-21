@@ -2,7 +2,7 @@
 from pymongo import MongoClient
 
 # MongoDB connection string
-MONGO_URI = "mongodb://root:example@localhost:27017/great?authSource=admin"
+MONGO_URI = "mongodb+srv://<user>:<password>@cluster0.koou6.mongodb.net/"
 
 # Connect to MongoDB
 client = MongoClient(MONGO_URI)
