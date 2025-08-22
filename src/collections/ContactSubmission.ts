@@ -12,9 +12,9 @@ const ContactSubmission: CollectionConfig = {
   },
   access: {
     create: () => true,
-    read: ({ req }) => Boolean(req.user),
-    update: ({ req }) => Boolean(req.user),
-    delete: ({ req }) => Boolean(req.user),
+    read: () => true,
+    update: () => true,
+    delete: () => true,
   },
 }
 
