@@ -73,7 +73,9 @@ const Testimonial: Block = {
         {
           name: 'avatar',
           localized: true,
-          type: 'text', // could be an "upload" field if you want media library integration
+          type: 'relationship',
+          relationTo: 'media',
+          required: false,
         },
         {
           localized: true,

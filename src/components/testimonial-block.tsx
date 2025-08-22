@@ -44,11 +44,16 @@ export function TestimonialBlock(testimonial: TestimonialBlockType) {
 
               {/* Author */}
               <div className="flex items-center gap-3">
-                <img
-                  src={testimonial.avatar || '/placeholder.svg'}
-                  alt={testimonial.name}
-                  className="h-12 w-12 rounded-full object-cover"
-                />
+                {testimonial.avatar && typeof testimonial.avatar !== 'string' && (
+                  <img
+                    className="h-12 w-12 rounded-full object-cover"
+                    src={`${testimonial.avatar.url}`}
+                    alt={testimonial.avatar.alt || testimonial.name}
+                    width={100}
+                    height={100}
+                  />
+                )}
+
                 <div>
                   <div className="font-semibold text-gray-900 dark:text-white">
                     {testimonial.name}

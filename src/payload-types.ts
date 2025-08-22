@@ -152,7 +152,7 @@ export interface User {
  */
 export interface Media {
   id: string;
-  alt: string;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -259,7 +259,7 @@ export interface Page {
             testimonials: {
               name: string;
               role?: string | null;
-              avatar?: string | null;
+              avatar?: (string | null) | Media;
               content: string;
               rating?: number | null;
               id?: string | null;
