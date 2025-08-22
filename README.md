@@ -1,3 +1,23 @@
+# Default Pages
+
+https://restroworks.ritik.fyi/en/home
+https://restroworks.ritik.fyi/contact
+https://restroworks.ritik.fyi/en/products
+
+Any number of pages can be made from Admin Panel
+
+### Admin Panel Access
+
+1. Navigate to the admin panel:
+
+   ```
+   https://restroworks.ritik.fyi/admin
+   ```
+
+2. Login with default credentials:
+   - **Email**: `admin@ritik.app`
+   - **Password**: `1234`
+
 # Payload CMS + Next.js Project
 
 A full-stack web application built with Payload CMS as the headless backend and Next.js for the frontend. The project uses Payload's schema system to manage content and renders pages dynamically in the Next.js frontend with multi-language support.

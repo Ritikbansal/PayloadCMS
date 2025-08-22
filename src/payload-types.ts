@@ -407,16 +407,6 @@ export interface ContactSubmission {
   name: string;
   email: string;
   message: string;
-  seo: {
-    title: string;
-    description: string;
-    canonicalURL?: string | null;
-    ogTitle?: string | null;
-    ogDescription?: string | null;
-    twitterCard?: ('summary' | 'summary_large_image') | null;
-    twitterTitle?: string | null;
-    twitterDescription?: string | null;
-  };
   updatedAt: string;
   createdAt: string;
 }
@@ -797,18 +787,6 @@ export interface ContactSubmissionsSelect<T extends boolean = true> {
   name?: T;
   email?: T;
   message?: T;
-  seo?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        canonicalURL?: T;
-        ogTitle?: T;
-        ogDescription?: T;
-        twitterCard?: T;
-        twitterTitle?: T;
-        twitterDescription?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
 }

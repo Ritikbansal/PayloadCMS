@@ -1,5 +1,4 @@
 import { CollectionConfig } from 'payload'
-import { seoFields } from './SEO'
 
 const ContactSubmission: CollectionConfig = {
   slug: 'contact-submissions',
@@ -7,7 +6,6 @@ const ContactSubmission: CollectionConfig = {
     { name: 'name', type: 'text', required: true },
     { name: 'email', type: 'email', required: true },
     { name: 'message', type: 'textarea', required: true },
-    seoFields,
   ],
   admin: {
     useAsTitle: 'name',

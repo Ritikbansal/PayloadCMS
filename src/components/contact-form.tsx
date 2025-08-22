@@ -56,28 +56,39 @@ export function ContactForm() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  e.preventDefault()
 
-    if (!validateForm()) return
+  if (!validateForm()) return
 
-    setIsSubmitting(true)
+  setIsSubmitting(true)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/contact-submissions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+
+    if (!res.ok) {
+      throw new Error('Failed to submit form')
+    }
 
     setIsSubmitting(false)
     setIsSubmitted(true)
 
-    // Reset form after success
     setTimeout(() => {
       setFormData({ name: '', email: '', message: '' })
       setIsSubmitted(false)
     }, 3000)
+  } catch (error) {
+    console.error(error)
+    setIsSubmitting(false)
   }
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
-    // Clear error when user starts typing
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }))
     }
