@@ -10,6 +10,12 @@ const ContactSubmission: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
   },
+  access: {
+    create: () => true,
+    read: ({ req }) => Boolean(req.user),
+    update: ({ req }) => Boolean(req.user),
+    delete: ({ req }) => Boolean(req.user),
+  },
 }
 
 export default ContactSubmission

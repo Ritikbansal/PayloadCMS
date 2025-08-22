@@ -11,6 +11,7 @@ import { Media } from './collections/Media'
 import { s3Storage } from '@payloadcms/storage-s3'
 import Pages from './collections/Pages'
 import ContactSubmission from './collections/ContactSubmission'
+import Languages from './collections/Languages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,7 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Pages, ContactSubmission],
+  collections: [Users, Media, Languages, Pages, ContactSubmission],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
