@@ -56,37 +56,37 @@ export function ContactForm() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
+    e.preventDefault()
 
-  if (!validateForm()) return
+    if (!validateForm()) return
 
-  setIsSubmitting(true)
+    setIsSubmitting(true)
 
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/contact-submissions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/contact-submissions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
 
-    if (!res.ok) {
-      throw new Error('Failed to submit form')
+      if (!res.ok) {
+        throw new Error('Failed to submit form')
+      }
+
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+
+      setTimeout(() => {
+        setFormData({ name: '', email: '', message: '' })
+        setIsSubmitted(false)
+      }, 3000)
+    } catch (error) {
+      console.error(error)
+      setIsSubmitting(false)
     }
-
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-
-    setTimeout(() => {
-      setFormData({ name: '', email: '', message: '' })
-      setIsSubmitted(false)
-    }, 3000)
-  } catch (error) {
-    console.error(error)
-    setIsSubmitting(false)
   }
-
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
     if (errors[field]) {
