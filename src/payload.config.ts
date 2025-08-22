@@ -1,5 +1,4 @@
 // storage-adapter-import-placeholder
-import { postgresAdapter } from '@payloadcms/db-postgres'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
@@ -9,11 +8,9 @@ import sharp from 'sharp'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
-import Posts from './collections/Posts'
+import { s3Storage } from '@payloadcms/storage-s3'
 import Pages from './collections/Pages'
 import ContactSubmission from './collections/ContactSubmission'
-import FeatureList from './collections/blocks/featureList'
-import Languages from './collections/Languages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -25,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Languages, Pages, ContactSubmission],
+  collections: [Users, Media, Pages, ContactSubmission],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -44,6 +41,21 @@ export default buildConfig({
   sharp,
   plugins: [
     payloadCloudPlugin(),
+    s3Storage({
+      collections: {
+        media: true, // matches your collection's slug
+      },
+      bucket: process.env.S3_BUCKET!,
+      config: {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY!,
+          secretAccessKey: process.env.S3_SECRET_KEY!,
+        },
+        region: 'auto', // REQUIRED for R2
+        endpoint: process.env.S3_ENDPOINT, // REQUIRED for R2 custom endpoint
+        forcePathStyle: true, // REQUIRED for R2!
+      },
+    }),
     // storage-adapter-placeholder
   ],
 })

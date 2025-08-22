@@ -68,13 +68,6 @@ const Footer: Block = {
       ],
     },
     {
-      name: 'languages',
-      type: 'relationship',
-      relationTo: 'languages',
-      hasMany: true,
-      label: 'Languages',
-    },
-    {
       name: 'socialLinks',
       type: 'array',
       label: 'Social Links',
